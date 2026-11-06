@@ -1,0 +1,23 @@
+{
+  "slug": "Tetrapods",
+  "name": "Tetrapods",
+  "version": "2.0.0",
+  "license": "GPL-3.0-or-later",
+  "brand": "Haer",
+  "author": "Haer",
+  "authorEmail": "",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "https://github.com/hardyfinn/tetrapods",
+  "donateUrl": "",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "Tetrapods",
+      "name": "Tetrapods",
+      "description": "Four-track sequencer built from two tetrachords: ten genera including quarter-tone Rast, Bayati and Saba, octave leaps, seven paths, arp or poly chord, 8 patterns, and a gate out on every track",
+      "tags": ["Sequencer", "Quantizer", "Polyphonic", "Random"]
+    }
+  ]
+}

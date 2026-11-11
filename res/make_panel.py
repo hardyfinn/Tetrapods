@@ -13,7 +13,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FONT_BOLD = os.environ.get("PANEL_FONT_BOLD", "/usr/share/fonts/opentype/inter/Inter-Bold.otf")
 FONT_MED = os.environ.get("PANEL_FONT_MED", "/usr/share/fonts/opentype/inter/Inter-Medium.otf")
 
-W = 162.56   # 32 HP
+W = 203.2   # 40 HP
 H = 128.5
 PAPER = "#ECEEE8"
 INK = "#1C2224"
@@ -82,59 +82,61 @@ def border(y):
 border(2.4)
 border(H - 2.4)
 add(text("TETRAPODS", 8.0, 9.6, 4.4, FONT_BOLD, INK, anchor="start", spacing=0.14))
-add(text("two tetrachords, four tracks", 45.0, 9.4, 2.1, FONT_MED, ACCENT, anchor="start"))
-add(text("scale = lower + upper", W - 8.0, 9.4, 2.1, FONT_MED, SOFT, anchor="end"))
-rect(6.0, 12.0, 150.56, 19.0, SCREEN, 1.6)
+add(text("two tetrachords, four tracks", 47.0, 9.5, 2.8, FONT_MED, ACCENT, anchor="start"))
+add(text("scale = lower + upper", W - 8.0, 9.5, 2.8, FONT_MED, SOFT, anchor="end"))
+rect(6.0, 12.0, W - 12.0, 19.0, SCREEN, 1.6)
 
 # --- tetrachord rows -------------------------------------------------------
+GENUS_X, NOTE_X0, NOTE_DX, SPREAD_X, LEAP_X, REV_X = 15.0, 34.0, 12.5, 91.0, 109.0, 125.0
 ROW_Y = {"UPPER": 44.0, "LOWER": 59.0}
 for name, y in ROW_Y.items():
-    ly = y - 6.4
-    label("GENUS", 14, ly)
-    label(name, 46.5, ly, 2.1, ACCENT)
+    ly = y - 6.2
+    label("GENUS", GENUS_X, ly, 3.2)
+    label(name, NOTE_X0 + 1.5 * NOTE_DX, ly, 3.2, ACCENT)
     for k in range(4):
-        hint(str(k + 1), 30 + 11 * k - 3.6, y - 3.0, 1.3)
-    label("SPREAD", 79, ly, 1.9)
-    label("LEAP", 93, ly, 1.9)
-    label("REV", 106, ly, 1.9)
-hint("octaves", 79, 64.6, 1.3)
-hint("how many", 93, 64.6, 1.3)
-vline(115.5, 35.0, 64.0)
-label("ROOT", 127, 37.6)
-label("CV", 147, 37.6)
-hint("V/oct", 147, 49.6, 1.3)
-label("JOIN", 124, 52.6, 1.9)
-hint("up: conj", 124, 65.2, 1.3)
-label("RESEED", 143, 52.6, 1.9)
-hint("button", 137, 65.2, 1.3)
-hint("trig", 149, 65.2, 1.3)
+        hint(str(k + 1), NOTE_X0 + NOTE_DX * k - 5.2, y - 2.6, 2.2)
+    label("SPREAD", SPREAD_X, ly, 3.2)
+    label("LEAP", LEAP_X, ly, 3.2)
+    label("REV", REV_X, ly, 3.2)
+hint("octaves", SPREAD_X, 65.3, 2.2)
+hint("how many", LEAP_X, 65.3, 2.2)
+vline(136.0, 35.0, 64.0)
+label("ROOT", 152, 37.8, 3.2)
+label("CV", 176, 37.8, 2.9)
+hint("V/oct", 183.5, 45.0, 2.2, anchor="start")
+label("JOIN", 150, 52.8, 2.9)
+hint("up: conj", 150, 65.3, 2.2)
+label("RESEED", 177, 52.8, 2.9)
+hint("button", 168, 65.3, 2.2)
+hint("trig", 186, 65.3, 2.2)
 
 # --- patterns --------------------------------------------------------------
-hline(66.0, 6.0, W - 6.0)
+hline(66.6, 6.0, W - 6.0)
 PAT_Y = 74.0
-label("PATTERNS", 48.75, 69.4, 1.9, ACCENT)
-label("CHAIN", 98, 69.0, 1.8)
-label("PAT CV", 111, 69.0, 1.8)
-label("NEXT", 123, 69.0, 1.8)
-label("RESET", 135, 69.0, 1.8)
-rect(143.0, 66.3, 12.0, 13.0, OUTBOX)
-add(text("EOC", 149, 69.3, 1.8, FONT_BOLD, OUTINK, spacing=0.06))
+label("PATTERNS", 12.0 + 3.5 * 13.0, 69.4, 2.9, ACCENT)
+label("CHAIN", 120, 69.4, 2.9)
+label("PAT CV", 136, 69.4, 2.9)
+label("NEXT", 152, 69.4, 2.9)
+label("RESET", 168, 69.4, 2.9)
+rect(179.0, 66.9, 14.0, 12.6, OUTBOX)
+add(text("EOC", 186, 69.4, 2.9, FONT_BOLD, OUTINK, spacing=0.06))
 
 # --- tracks ----------------------------------------------------------------
-TRACK_X = [22.0, 61.5, 101.0, 140.5]
-Y1, Y2, Y3 = 89.5, 102.5, 116.5
-for x in (41.75, 81.25, 120.75):
-    vline(x, 79.0, 123.5)
+TRACK_X = [27.5, 77.0, 126.5, 176.0]
+DX = 16.0
+Y1, Y2, Y3 = 91.0, 104.0, 117.6
+for x in (52.25, 101.75, 151.25):
+    vline(x, 80.0, 123.5)
 for t, x in enumerate(TRACK_X):
-    add(text(f"TRACK {t + 1}", x, 82.0, 2.0, FONT_BOLD, TRACK_COL[t], spacing=0.12))
-    for dx, n in ((-11, "PATH"), (0, "SOURCE"), (11, "OCT")):
-        label(n, x + dx, Y1 - 5.0, 1.6)
-    for dx, n in ((-11, "LENGTH"), (0, "CHANCE"), (11, "CHORD")):
-        label(n, x + dx, Y2 - 5.0, 1.6)
-    rect(x - 5.6, Y3 - 7.4, 22.2, 13.4, OUTBOX)
-    label("CLOCK", x - 11, Y3 - 5.0, 1.6)
-    add(text("V/OCT", x, Y3 - 5.0, 1.6, FONT_BOLD, OUTINK, spacing=0.06))
-    add(text("GATE", x + 11, Y3 - 5.0, 1.6, FONT_BOLD, OUTINK, spacing=0.06))
+    add(text(f"TRACK {t + 1}", x, 82.6, 2.9, FONT_BOLD, TRACK_COL[t], spacing=0.10))
+    for dx, n in ((-DX, "PATH"), (0, "SOURCE"), (DX, "OCT")):
+        label(n, x + dx, Y1 - 5.2, 2.9)
+    for dx, n in ((-DX, "LENGTH"), (0, "CHANCE"), (DX, "CHORD")):
+        label(n, x + dx, Y2 - 5.2, 2.9)
+    rect(x - 7.6, Y3 - 7.6, 31.6, 13.2, OUTBOX)
+    label("CLOCK", x - DX, Y3 - 5.2, 2.9)
+    add(text("V/OCT", x, Y3 - 5.2, 2.9, FONT_BOLD, OUTINK, spacing=0.04))
+    add(text("GATE", x + DX, Y3 - 5.2, 2.9, FONT_BOLD, OUTINK, spacing=0.04))
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}mm" height="{H}mm" viewBox="0 0 {W} {H}">\n'
        + "\n".join(parts) + "\n</svg>\n")

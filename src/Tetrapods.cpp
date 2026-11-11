@@ -409,10 +409,11 @@ struct TetraDisplay : Widget {
 // ---------------------------------------------------------------------------
 namespace layout {
 static const float ROW_Y[NUM_ROWS] = {59.f, 44.f};     // lower row sits below the upper
-static const float GENUS_X = 14.f, NOTE_X0 = 30.f, NOTE_DX = 11.f, SPREAD_X = 79.f, LEAP_X = 93.f, REV_X = 106.f;
-static const float PAT_Y = 74.f, PAT_X0 = 12.f, PAT_DX = 10.5f;
-static const float TRACK_X[NUM_TRACKS] = {22.f, 61.5f, 101.f, 140.5f};
-static const float TR_Y1 = 89.5f, TR_Y2 = 102.5f, TR_Y3 = 116.5f;
+static const float GENUS_X = 15.f, NOTE_X0 = 34.f, NOTE_DX = 12.5f, SPREAD_X = 91.f, LEAP_X = 109.f, REV_X = 125.f;
+static const float PAT_Y = 74.f, PAT_X0 = 12.f, PAT_DX = 13.f;
+static const float TRACK_X[NUM_TRACKS] = {27.5f, 77.f, 126.5f, 176.f};
+static const float TR_DX = 16.f;
+static const float TR_Y1 = 91.f, TR_Y2 = 104.f, TR_Y3 = 117.6f;
 }
 
 struct TetrapodsWidget : ModuleWidget {
@@ -426,7 +427,7 @@ struct TetrapodsWidget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
 		TetraDisplay* d = createWidget<TetraDisplay>(mm2px(Vec(6.0, 12.0)));
-		d->box.size = mm2px(Vec(150.56, 19.0));
+		d->box.size = mm2px(Vec(191.2, 19.0));
 		d->module = module;
 		addChild(d);
 
@@ -447,36 +448,36 @@ struct TetrapodsWidget : ModuleWidget {
 				Tetrapods::REV_PARAM + r, Tetrapods::REV_LIGHT + r));
 		}
 		// right of the rows: root, join, reseed
-		addParam(createParamCentered<RoundBlackSnapKnob>(mm2px(Vec(127.f, 44.f)), module, Tetrapods::ROOT_PARAM));
-		in(147.f, 44.f, Tetrapods::ROOT_INPUT);
-		addParam(createParamCentered<CKSS>(mm2px(Vec(124.f, 59.f)), module, Tetrapods::JOIN_PARAM));
-		addParam(createParamCentered<VCVButton>(mm2px(Vec(137.f, 59.f)), module, Tetrapods::RESEED_PARAM));
-		in(149.f, 59.f, Tetrapods::RESEED_INPUT);
+		addParam(createParamCentered<RoundBlackSnapKnob>(mm2px(Vec(152.f, 44.f)), module, Tetrapods::ROOT_PARAM));
+		in(176.f, 44.f, Tetrapods::ROOT_INPUT);
+		addParam(createParamCentered<CKSS>(mm2px(Vec(150.f, 59.f)), module, Tetrapods::JOIN_PARAM));
+		addParam(createParamCentered<VCVButton>(mm2px(Vec(168.f, 59.f)), module, Tetrapods::RESEED_PARAM));
+		in(186.f, 59.f, Tetrapods::RESEED_INPUT);
 
 		// patterns
 		for (int i = 0; i < NUM_PATTERNS; i++)
 			addParam(createLightParamCentered<VCVLightBezel<WhiteLight>>(mm2px(Vec(PAT_X0 + i * PAT_DX, PAT_Y)), module,
 				Tetrapods::PAT_PARAM + i, Tetrapods::PAT_LIGHT + i));
-		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(98.f, PAT_Y)), module, Tetrapods::CHAIN_PARAM));
-		in(111.f, PAT_Y, Tetrapods::PAT_INPUT);
-		in(123.f, PAT_Y, Tetrapods::NEXT_INPUT);
-		in(135.f, PAT_Y, Tetrapods::RESET_INPUT);
-		out(149.f, PAT_Y, Tetrapods::EOC_OUTPUT);
+		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(120.f, PAT_Y)), module, Tetrapods::CHAIN_PARAM));
+		in(136.f, PAT_Y, Tetrapods::PAT_INPUT);
+		in(152.f, PAT_Y, Tetrapods::NEXT_INPUT);
+		in(168.f, PAT_Y, Tetrapods::RESET_INPUT);
+		out(186.f, PAT_Y, Tetrapods::EOC_OUTPUT);
 
 		// tracks
 		for (int t = 0; t < NUM_TRACKS; t++) {
 			float x = TRACK_X[t];
-			addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(x - 11.f, TR_Y1)), module, Tetrapods::PATH_PARAM + t));
+			addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(x - TR_DX, TR_Y1)), module, Tetrapods::PATH_PARAM + t));
 			addParam(createParamCentered<Trimpot>(mm2px(Vec(x, TR_Y1)), module, Tetrapods::SRC_PARAM + t));
-			addParam(createParamCentered<Trimpot>(mm2px(Vec(x + 11.f, TR_Y1)), module, Tetrapods::OCT_PARAM + t));
-			addParam(createParamCentered<Trimpot>(mm2px(Vec(x - 11.f, TR_Y2)), module, Tetrapods::LEN_PARAM + t));
+			addParam(createParamCentered<Trimpot>(mm2px(Vec(x + TR_DX, TR_Y1)), module, Tetrapods::OCT_PARAM + t));
+			addParam(createParamCentered<Trimpot>(mm2px(Vec(x - TR_DX, TR_Y2)), module, Tetrapods::LEN_PARAM + t));
 			addParam(createParamCentered<Trimpot>(mm2px(Vec(x, TR_Y2)), module, Tetrapods::PROB_PARAM + t));
-			addParam(createLightParamCentered<VCVLightLatch<MediumSimpleLight<WhiteLight>>>(mm2px(Vec(x + 11.f, TR_Y2)), module,
+			addParam(createLightParamCentered<VCVLightLatch<MediumSimpleLight<WhiteLight>>>(mm2px(Vec(x + TR_DX, TR_Y2)), module,
 				Tetrapods::MODE_PARAM + t, Tetrapods::MODE_LIGHT + t));
-			in(x - 11.f, TR_Y3, Tetrapods::CLOCK_INPUT + t);
+			in(x - TR_DX, TR_Y3, Tetrapods::CLOCK_INPUT + t);
 			out(x, TR_Y3, Tetrapods::VOCT_OUTPUT + t);
-			out(x + 11.f, TR_Y3, Tetrapods::GATE_OUTPUT + t);
-			addChild(createLightCentered<SmallLight<GreenLight>>(mm2px(Vec(x + 15.6f, TR_Y3 - 4.4f)), module, Tetrapods::GATE_LIGHT + t));
+			out(x + TR_DX, TR_Y3, Tetrapods::GATE_OUTPUT + t);
+			addChild(createLightCentered<SmallLight<GreenLight>>(mm2px(Vec(x + TR_DX + 5.0f, TR_Y3 - 3.8f)), module, Tetrapods::GATE_LIGHT + t));
 		}
 	}
 

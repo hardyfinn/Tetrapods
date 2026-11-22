@@ -115,3 +115,7 @@ make dist RACK_DIR=/path/to/Rack-SDK                                            
 ```
 
 The engine (`src/TetraEngine.hpp`) has no VCV code in it, so the tests run on their own.
+
+## Licence
+
+MIT (see `LICENSE.txt`): you're free to use, change, port (VST/CLAP, other platforms, hardware) and share this code, as long as the copyright notice and licence text come along. Fonts on the panel (Inter, Climate Crisis) are under the SIL Open Font Licence.
